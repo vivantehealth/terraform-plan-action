@@ -35,13 +35,16 @@ runs:
     - name: Set up Terraform cli
       uses: hashicorp/setup-terraform@v1
     - name: Generate backend config
+      shell: bash
       run: |
         echo 'bucket = "${{ inputs.terraform_project_id }}-state"' > backend.hcl
         echo 'prefix = "${{ github.event.repository.name }}"' >> backend.hcl
     - name: TF init
+      shell: bash
       run: terraform init -input=false -backend-config=./backend.hcl
     - name: TF plan (verbose)
       id: plan
+      shell: bash
       run: |
         terraform plan -input=false -out=planfile ${{ inputs.additional_plan_args }}
         echo "::set-output name=plan_file_path::$(echo planfile)"
@@ -49,10 +52,12 @@ runs:
         TF_VAR_secrets_provisioning_private_key: ${{ inputs.secrets_provisioning_private_key }}
         TF_VAR_google_project: ${{ inputs.domain_project_id }}
     - name: TF plan (concise)
+      shell: bash
       run: terraform show planfile
       env:
         TF_LOG: WARN
     - name: TF plan (summary)
+      shell: bash
       run: terraform show planfile | grep -E '(^.{4}  [#] .*|^[[:punct:]]|Plan)'
       env:
         TF_LOG: WARN
