@@ -2,7 +2,7 @@
 
 Suggested use:
 
-```
+```yaml
   plan:
     name: Terraform Plan (dev)
     environment:
