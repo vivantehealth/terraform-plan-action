@@ -46,6 +46,8 @@ runs:
       id: plan
       shell: bash
       run: |
+        ls
+        pwd
         terraform plan -input=false -out=planfile ${{ inputs.additional_plan_args }}
         echo "::set-output name=plan_file_path::$(echo planfile)"
       env:
