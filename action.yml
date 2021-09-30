@@ -28,8 +28,6 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Checkout
-      uses: actions/checkout@master
     - name: Login to GCP
       uses: google-github-actions/setup-gcloud@master
       with:
@@ -58,12 +56,6 @@ runs:
         echo "::set-output name=plan_file_path::$(echo planfile)"
       env:
         TF_VAR_secrets_provisioning_private_key: ${{ inputs.secrets_provisioning_private_key }}
-    - name: TF plan (concise)
-      working-directory: ${{ inputs.tf_working_dir }}
-      shell: bash
-      run: terraform show planfile
-      env:
-        TF_LOG: WARN
     - name: TF plan (summary)
       working-directory: ${{ inputs.tf_working_dir }}
       shell: bash
