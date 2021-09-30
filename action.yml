@@ -59,8 +59,6 @@ runs:
         echo "::set-output name=plan_file_path::$(echo planfile)"
       env:
         TF_VAR_secrets_provisioning_private_key: ${{ inputs.secrets_provisioning_private_key }}
-        TF_VAR_base64_domain_project_id: ${{ inputs.base64_domain_project_id }}
-        TF_VAR_base64_terraform_project_id: ${{ inputs.base64_terraform_project_id }}
     - name: TF plan (concise)
       working-directory: ${{ inputs.tf_working_dir }}
       shell: bash
