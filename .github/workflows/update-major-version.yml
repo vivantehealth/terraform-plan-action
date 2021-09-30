@@ -6,13 +6,14 @@ on:
       - "v*"
   release:
     types:
-      - created
+      - published
+      - edited
 
 jobs:
   update-majorver:
     name: Update Major Version Tag
     runs-on: ubuntu-latest
     steps:
-      - uses: nowactions/update-majorver@v1
+      - uses: Actions-R-Us/actions-tagger@latest
         with:
-          github_token: ${{ secrets. GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
