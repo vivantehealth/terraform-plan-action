@@ -16,8 +16,8 @@ inputs:
   secrets_provisioning_private_key:
     description: Private key for a GitHub App that can provision repo-environments and secrets
     required: true
-  additional_plan_args:
-    description: Additional arguments to add to the `terraform plan` step. Use this to specify tfvar files, for example
+  tfvars_file:
+    description: Terraform variables file path, if any
     required: false
     default: ""
   tf_working_dir:
@@ -54,8 +54,8 @@ runs:
       shell: bash
       run: |
         export TF_VAR_stack_name=$(echo -n ${{ github.event.repository.name }})
-        export TF_VAR_domain_project_id=$(echo -n ${{ inputs.base64_domain_project_id }} | base64 -d)
-        export TF_VAR_terraform_project_id=$(echo -n ${{ inputs.base64_terraform_project_id }} | base64 -d)
+        export TF_VAR_domain_project_id=$(echo -n "${{ inputs.base64_domain_project_id }}" | base64 -d)
+        export TF_VAR_terraform_project_id=$(echo -n "${{ inputs.base64_terraform_project_id }}" | base64 -d)
         terraform plan -input=false -out=planfile ${{ inputs.additional_plan_args }}
         echo "::set-output name=plan_file_path::$(echo planfile)"
       env:
