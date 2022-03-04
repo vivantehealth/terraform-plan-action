@@ -13,6 +13,9 @@ inputs:
   base64_domain_project_id:
     description: Base64 encoded GCP project id of the stack's domain
     required: true
+  base64_docker_registry:
+    description: Base64 encoded docker registry, with optional docker repo name
+    required: true    
   tfvars_file:
     description: Terraform variables file path, if any
     required: false
