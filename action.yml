@@ -58,7 +58,7 @@ runs:
         export TF_VAR_terraform_project_id=$(echo -n "${{ inputs.base64_terraform_project_id }}" | base64 -d)
         export TF_VAR_docker_registry=$(echo -n "${{ inputs.base64_docker_registry }}" | base64 -d)
         terraform plan -input=false -out=planfile ${{ inputs.tfvars_file }}
-        echo "::set-output name=plan_file_path::$(echo planfile)"
+        echo "name=plan_file_path::$(echo planfile)" >> $GITHUB_OUTPUT
     - name: TF plan (summary)
       working-directory: ${{ inputs.tf_working_dir }}
       shell: bash
